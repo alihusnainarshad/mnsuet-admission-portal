@@ -5776,7 +5776,8 @@ button.close {
 }
 
 .pull-left {
-	float: left!important
+	float: left!important;
+	font-size: 14px;
 }
 
 .hide {
