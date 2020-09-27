@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html>
 
@@ -52,6 +53,7 @@
 								<table id="merit_list" class="table table-hover table-bordered">
 									<thead>
 										<tr>
+											<th>Serial #</th>
 											<th>Applicant Name</th>
 											<th>CNIC</th>
 											<th>Aggregate</th>
@@ -78,6 +80,7 @@
 							.done(function (data) {
 								if (data.feed.entry.length > 0) {
 									$.each(data.feed.entry, function (i, item) {
+										var $serial = item.gsx$serial.$t;
 										var $name = item.gsx$name.$t;
 										var $cnic = item.gsx$cnic.$t;
 										var $agg = item.gsx$agg.$t;
@@ -85,6 +88,8 @@
 
 										$(
 											"<tr><td>" +
+											$serial +
+											"</td><td>" +
 											$name +
 											"</td><td>" +
 											$cnic +
