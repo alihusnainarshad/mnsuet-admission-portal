@@ -46,33 +46,69 @@
 					<div class="panel-heading" style="font-size:25px; font-weight:bold">
 						<u>Chemical Engineering - Fall 2020</u>
 					</div>
-					<div class="results"></div>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-12">
+								<table id="loans" class="table table-hover table-bordered">
+									<thead>
+										<tr>
+											<th>Language</th>
+											<th>Branch</th>
+											<th>Title List</th>
+											<th>Return Date</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
+							</div>
+							<!-- /column -->
+						</div>
+						<!-- /row -->
+					</div>
+					<!-- /container -->
 
 					<script>
-						// ID of the Google Spreadsheet
-						var spreadsheetID = '1qHHsP5supl6Za8jdedOjz1yDvuuz6IyEGm1Vq9nBUpA';
+						var jsonSource = "https://spreadsheets.google.com/feeds/list/1oXeAey3ltefipz9H4puuTjIybzU3VxSJeiIeoK8Ln2o/od6/public/values?alt=json"
 
-						// Make sure it is public or set to Anyone with link can view
-						var url =
-							'https://spreadsheets.google.com/feeds/list/' +
-							spreadsheetID +
-							'/od6/public/values?alt=json';
+						//fetch the json feed
+						$.getJSON(jsonSource, function () {
+							$("<p>json request successful</p>").prependTo("#container");
+						})
 
-						$.getJSON(url, function (data) {
-							var entry = data.feed.entry;
+							.done(function (data) {
+								if (data.feed.entry.length > 0) {
+									$.each(data.feed.entry, function (i, item) {
+										var $language = item.gsx$language.$t;
+										var $branch = item.gsx$branchlocation.$t;
+										var $retDate = item.gsx$returndate.$t;
+										var $subject = item.gsx$weaskedfor.$t;
+										var $titleList = item.gsx$titlelistdocument.$t;
+										var $titleListURL = item.gsx$titlelisturl.$t;
+										var $docLink;
 
-							$(entry).each(function () {
-								// Column names are name, age, etc.
-								//Name	CNIC	Aggregate	Status
-								$('.results').prepend(
-									'<p>' + this.gsx$Name.$t + '</p><p>' + this.gsx$CNIC.$t + '</p><p>' + this.gsx$Aggregate.$t + '</p><p>' + this.gsx$Status.$t + '</p>'
-								);
+
+										$("<tr><td>" + $language +
+											"</td><td>" + $branch +
+											"</td><td>" + $docLink +
+											"</td><td>" + $retDate +
+
+											"</td></tr>").appendTo("#loans tbody");
+									});
+								} else {
+									// if the json request is successful but there are no items
+									$("<p>JSON request succeeded but no data returned.</p>").prependTo("#container");
+								}
+							})
+
+							.fail(function () {
+								$("<p>JSON request fail</p>").prependTo("#container");
+							})
+
+							.error(function () {
+								$("<p>JSON request error</p>").prependTo("#container");
 							});
-						});
+
 					</script>
-
-
-
 
 
 
