@@ -85,16 +85,16 @@
 							.done(function (data) {
 								if (data.feed.entry.length > 0) {
 									$.each(data.feed.entry, function (i, item) {
-										var $serial = item.gsx$sr_no.$t;
-										var $name = item.gsx$applicant_name.$t;
-										var $cnic = item.gsx$father_name.$t;
-										var $agg = item.gsx$cnic.$t;
-										var $stat = item.gsx$gender.$t;
-										var $stat = item.gsx$aggregate.$t;
-										var $stat = item.gsx$list_no.$t;
-										var $stat = item.gsx$issue_date.$t;
-										var $stat = item.gsx$due_date.$t;
-										var $stat = item.gsx$admission_status.$t;
+										var $sr_no = item.gsx$sr_no.$t;
+										var $applicant_name = item.gsx$applicant_name.$t;
+										var $father_name = item.gsx$father_name.$t;
+										var $cnic = item.gsx$cnic.$t;
+										var $gender = item.gsx$gender.$t;
+										var $aggregate = item.gsx$aggregate.$t;
+										var $list_no = item.gsx$list_no.$t;
+										var $issue_date = item.gsx$issue_date.$t;
+										var $due_date = item.gsx$due_date.$t;
+										var $admission_status = item.gsx$admission_status.$t;
 
 										$(
 											"<tr><td>" +
