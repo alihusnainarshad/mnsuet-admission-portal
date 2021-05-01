@@ -45,7 +45,7 @@
 				<div class="container">
 					
 					<div class="panel-heading" style="font-size:25px; font-weight:bold">
-						<u>Chemical Engineering - Fall 2020</u>
+						<u>PhD. Chemical Engineering - Fall 2021</u>
 					</div>
 					<div class="container-fluid">
 						<div class="row">
@@ -55,9 +55,14 @@
 										<tr>
 											<th>Serial #</th>
 											<th>Applicant Name</th>
+											<th>Father Name</th>
 											<th>CNIC</th>
+											<th>Gender</th>
 											<th>Aggregate</th>
-											<th>Status</th>
+											<th>List #</th>
+											<th>Issue Date</th>
+											<th>Due Date</th>
+											<th>Admission Status</th>
 										</tr>
 									</thead>
 									<tbody></tbody>
@@ -71,7 +76,7 @@
 
 					<script>
 						var jsonSource =
-							"https://spreadsheets.google.com/feeds/list/1qHHsP5supl6Za8jdedOjz1yDvuuz6IyEGm1Vq9nBUpA/od6/public/values?alt=json";
+							"https://spreadsheets.google.com/feeds/list/1fwFrhCw73zr9XUvqyRObSuEYTxR60kCmfuF-DnzRpbA/od6/public/values?alt=json";
 
 						//fetch the json feed
 						$.getJSON(jsonSource, function () {
@@ -80,23 +85,38 @@
 							.done(function (data) {
 								if (data.feed.entry.length > 0) {
 									$.each(data.feed.entry, function (i, item) {
-										var $serial = item.gsx$serial.$t;
-										var $name = item.gsx$name.$t;
-										var $cnic = item.gsx$cnic.$t;
-										var $agg = item.gsx$agg.$t;
-										var $stat = item.gsx$stat.$t;
+										var $serial = item.gsx$sr_no.$t;
+										var $name = item.gsx$applicant_name.$t;
+										var $cnic = item.gsx$father_name.$t;
+										var $agg = item.gsx$cnic.$t;
+										var $stat = item.gsx$gender.$t;
+										var $stat = item.gsx$aggregate.$t;
+										var $stat = item.gsx$list_no.$t;
+										var $stat = item.gsx$issue_date.$t;
+										var $stat = item.gsx$due_date.$t;
+										var $stat = item.gsx$admission_status.$t;
 
 										$(
 											"<tr><td>" +
-											$serial +
+											$sr_no +
 											"</td><td>" +
-											$name +
+											$applicant_name +
+											"</td><td>" +
+											$father_name +
 											"</td><td>" +
 											$cnic +
 											"</td><td>" +
-											$agg +
+											$gender +
 											"</td><td>" +
-											$stat +
+											$aggregate +
+											"</td><td>" +
+											$list_no +
+											"</td><td>" +
+											$issue_date +
+											"</td><td>" +
+											$due_date +
+											"</td><td>" +
+											$admission_status +
 											"</td></tr>"
 										).appendTo("#merit_list tbody");
 									});
