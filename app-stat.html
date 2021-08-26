@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
 	<title>MNS UET Admission Portal</title>
 	<meta charset="utf-8" />
@@ -11,6 +12,8 @@
 	<link href="uet/css/alicss.css" rel="stylesheet" />
 	<link href="uet/css/morris.css" rel="stylesheet" />
 	<link href="uet/icon/css/font-awesome.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 
 <body class="is-preload">
@@ -41,60 +44,69 @@
 			<section id="engineering">
 				<div class="container">
 					<header class="major">
-						<h3>P.hD Programs</h3>
+						<h3>Application Status</h3>
 					</header>
-					<b>Note : Errors and omissions excepted</b>
-					<br><br><br>
-					<!-- /.startbox -->
-					<div class="col-lg-6 col-md-6">
-						<div class="panel panel-green">
-							<div class="panel-heading" style="font-size:17px; font-weight:bold">
-								Ph.D Chemical Engineering
+					
+								<div class="container-fluid">
+						<div class="row">
+							<div style="overflow-x:auto;" class="table-responsive text-nowrap">
+								<table id="merit_list" class="table table-hover table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Program Name</th>
+											<th>No. of Applications</th>
+										</tr>
+									</thead>
+									<tbody></tbody>
+								</table>
 							</div>
-							<div class="panel-body" style="background:gainsboro;">
-								<div class="col-xs-3"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></div>
-								<div class="col-xs-9 text-left">
-									<div style="font-size: 15px;">
-										<a href="#"
-											target="_blank"><b>Download 0th Merit List</b></a><br />
-									</div>
-								</div>
-							</div>
-							<div class="panel-footer" style="color: #337ab7;">
-								<span class="pull-left">Last Date To Submit Fee : November 2, 2020</span>
-								<div class="clearfix"></div>
-							</div>
+							<!-- /column -->
 						</div>
+						<!-- /row -->
 					</div>
-					<!-- /.endbox -->
-					<!-- /.startbox -->
-					<div class="col-lg-6 col-md-6">
-						<div class="panel panel-green">
-							<div class="panel-heading" style="font-size:17px; font-weight:bold">
-								Admission Forms
-							</div>
-							<div class="panel-body" style="background:gainsboro;">
-								<div class="col-xs-3"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></div>
-								<div class="col-xs-9 text-left">
-									<div style="font-size: 15px;">
-										   <a href="https://github.com/alihusnainarshad/mnsuet-admission-portal/raw/master/forms/bio_data.pdf"
-											target="_blank"><b>Download Bio Data Card</b></a><br />
-											<a href="https://github.com/alihusnainarshad/mnsuet-admission-portal/raw/master/forms/Medical_form.pdf"
-											target="_blank"><b>Download Medical Certificate</b></a><br />
-											<a href="https://github.com/alihusnainarshad/mnsuet-admission-portal/raw/master/forms/undertaking_stam_paper-BoltFlare.pdf"
-											target="_blank"><b>Download Undertaking Form</b></a><br />
-									</div>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<!-- /.endbox -->	
+					<!-- /container -->
 
-				</div>
+					<script>
+						var jsonSource =
+							"https://spreadsheets.google.com/feeds/list/1cLNFJJoa7_JilFeNKLQzhgJZPC28lpzRULd1uyNmEFY/od6/public/values?alt=json";
+
+						//fetch the json feed
+						$.getJSON(jsonSource, function () {
+							$("<p>json request successful</p>").prependTo("#container");
+						})
+							.done(function (data) {
+								if (data.feed.entry.length > 0) {
+									$.each(data.feed.entry, function (i, item) {
+										var $program = item.gsx$program.$t;
+										var $amount = item.gsx$amount.$t;
+
+										$(
+											"<tr><td>" +
+											$program +
+											"</td><td>" +
+											$amount +
+											"</td></tr>"
+										).appendTo("#merit_list tbody");
+									});
+								} else {
+									// if the json request is successful but there are no items
+									$("<p>JSON request succeeded but no data returned.</p>").prependTo(
+										"#container"
+									);
+								}
+							})
+
+							.fail(function () {
+								$("<p>JSON request fail</p>").prependTo("#container");
+							})
+
+							.error(function () {
+								$("<p>JSON request error</p>").prependTo("#container");
+							});
+
+					</script>
 
 
-			</section>
 
 		</div>
 		<!-- Footer -->
