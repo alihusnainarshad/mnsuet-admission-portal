@@ -44,69 +44,21 @@
 			<section id="engineering">
 				<div class="container">
 					<header class="major">
-						<h3>Application Status</h3>
+						<h3>Admission Dashboard 2021</h3>
 					</header>
 					
-								<div class="container-fluid">
-						<div class="row">
-							<div style="overflow-x:auto;" class="table-responsive text-nowrap">
-								<table id="merit_list" class="table table-hover table-bordered table-striped">
-									<thead>
-										<tr>
-											<th>Program Name</th>
-											<th>No. of Applications</th>
-										</tr>
-									</thead>
-									<tbody></tbody>
-								</table>
-							</div>
-							<!-- /column -->
-						</div>
-						<!-- /row -->
+							<div class="container-fluid">
+					
+							<center>
+						
+						<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTvFMgslCza-znI_46vzbTx9tecuTpTPv1bCzXce4uiuj9EbsVNYQUmIMc673CaF9esuaGeB-SFr8GY/pubhtml?gid=0&amp;single=true&amp;widget=false&headers=false&chrome=false" height="1080" width="840"></iframe></iframe>
+							
+							
+					</center>
+					
+					
 					</div>
 					<!-- /container -->
-
-					<script>
-						var jsonSource =
-							"https://spreadsheets.google.com/feeds/list/1cLNFJJoa7_JilFeNKLQzhgJZPC28lpzRULd1uyNmEFY/od6/public/values?alt=json";
-
-						//fetch the json feed
-						$.getJSON(jsonSource, function () {
-							$("<p>json request successful</p>").prependTo("#container");
-						})
-							.done(function (data) {
-								if (data.feed.entry.length > 0) {
-									$.each(data.feed.entry, function (i, item) {
-										var $program = item.gsx$program.$t;
-										var $amount = item.gsx$amount.$t;
-
-										$(
-											"<tr><td>" +
-											$program +
-											"</td><td>" +
-											$amount +
-											"</td></tr>"
-										).appendTo("#merit_list tbody");
-									});
-								} else {
-									// if the json request is successful but there are no items
-									$("<p>JSON request succeeded but no data returned.</p>").prependTo(
-										"#container"
-									);
-								}
-							})
-
-							.fail(function () {
-								$("<p>JSON request fail</p>").prependTo("#container");
-							})
-
-							.error(function () {
-								$("<p>JSON request error</p>").prependTo("#container");
-							});
-
-					</script>
-
-
 
 		</div>
 		<!-- Footer -->
